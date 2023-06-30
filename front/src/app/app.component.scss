@@ -1,0 +1,54 @@
+@import 'src/colors';
+
+mat-sidenav-container {
+  height:calc(100vh - 13rem);
+  background-color: black;
+}
+
+mat-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-sidenav {
+  background-color: $dark;
+  padding: 2rem;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.icon-menu {
+  font-size: 5rem;
+  color: white;
+  cursor: pointer;
+}
+
+header {
+  height: 13rem;
+  background-color: $orange;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 3rem;
+  gap: 2rem;
+}
+
+img {
+  height: 90px;
+  width: 90px;
+  border-radius: 50px;
+}
+
+h1 {
+  color: white;
+  font-weight: bold;
+  padding-top: 1rem;
+}

@@ -1,0 +1,170 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$SaltyScuttler-primary: mat.define-palette(mat.$indigo-palette);
+$SaltyScuttler-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$SaltyScuttler-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$SaltyScuttler-theme: mat.define-light-theme((
+  color: (
+    primary: $SaltyScuttler-primary,
+    accent: $SaltyScuttler-accent,
+    warn: $SaltyScuttler-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($SaltyScuttler-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; font-size: 62.5%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$fontFamily: 'MontSerrat', 'Helvetica Neue', sans-serif;
+
+$smallSize: 1.2rem;
+$fontSize: 1.4rem;
+$midSize: 1.6rem;
+$largeSize: 1.8rem;
+
+$bnc-typography: mat.define-typography-config(
+  $headline: // h1
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: 4.8rem,
+      $line-height: 6.4rem,
+      $font-weight: 400,
+    ),
+  $title: // h2
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: 3.2rem,
+      $line-height: 5.2rem,
+      $font-weight: 500,
+    ),
+  $subheading-2: // h3
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: 2.2rem,
+      $line-height: 3.6rem,
+      $font-weight: 500,
+    ),
+  $subheading-1: // h4
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: 1.8rem,
+      $line-height: 2.8rem,
+      $font-weight: 500,
+    ),
+  $body-1:
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: $fontSize,
+      $line-height: 2.2rem,
+      $font-weight: 500,
+    ),
+  $body-2:
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: $fontSize,
+      $line-height: 2.2rem,
+      $font-weight: 700,
+    ),
+  $caption:
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: $smallSize,
+      $line-height: $midSize,
+      $font-weight: 500,
+    ),
+  $button:
+    mat.define-typography-level(
+      $font-family: $fontFamily,
+      $font-size: 1.3rem,
+      $font-weight: 500,
+    ),
+);
+
+@mixin body {
+  @include mat.typography-level($bnc-typography, 'body-1');
+}
+
+@mixin body-bold {
+  @include mat.typography-level($bnc-typography, 'body-2');
+}
+
+@mixin h1 {
+  @include mat.typography-level($bnc-typography, 'headline');
+}
+
+@mixin h2 {
+  @include mat.typography-level($bnc-typography, 'title');
+}
+
+@mixin h3 {
+  @include mat.typography-level($bnc-typography, 'subheading-2');
+}
+
+@mixin h4 {
+  @include mat.typography-level($bnc-typography, 'subheading-1');
+}
+
+@mixin caption {
+  @include mat.typography-level($bnc-typography, 'caption');
+}
+
+@mixin caption-bold {
+  @include caption;
+  font-weight: 700;
+}
+
+@mixin caption-link {
+  @include caption;
+  text-decoration: underline;
+}
+
+@mixin label {
+  font-family: $fontFamily;
+  font-size: $smallSize;
+  letter-spacing: 0.12rem;
+  line-height: normal;
+  font-weight: 700;
+}
+
+@mixin label-mini {
+  @include label;
+  font-size: 1rem;
+}
+
+@mixin button {
+  @include mat.typography-level($bnc-typography, 'button');
+}
+
+@mixin button-bold {
+  @include button;
+  font-weight: 600;
+}
+
+
+@include mat.core($bnc-typography);
+//import icon
+@import 'icon.scss';
+

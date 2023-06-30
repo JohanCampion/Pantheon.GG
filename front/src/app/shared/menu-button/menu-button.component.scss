@@ -1,0 +1,52 @@
+@import 'src/colors';
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+  height: 6rem;
+  background-color: $lightGrey;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  overflow: hidden;
+  border-color: $grey;
+  cursor: pointer;
+  border-color: $grey;
+
+  &:hover {
+    border-color: $orange;
+    span {
+      color: $orange;
+      border-color: $orange;
+    }
+    p {
+      color: $orange;
+    }
+  }
+}
+
+span {
+  font-size: 3rem;
+  color: $grey;
+}
+
+
+p {
+  font-size: 3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-top: 1rem;
+  color: white;
+}
+
+.wrapper {
+  transition: width 2000ms;
+}
+
