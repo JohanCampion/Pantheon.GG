@@ -1,4 +1,4 @@
-<button>
-  <p>Se connecter avec Metamask</p>
-  <span class="icon-metamask"></span>
-</button>
+<div (click)="emitClick($event)">
+  <p>{{text}}</p>
+  <img *ngIf="image" src="../../assets/images/metamask-seeklogo.com.svg">
+</div>

@@ -3,6 +3,7 @@ import Web3 from "web3";
 import { Web3Service} from "./services/web3.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "./services/auth.service";
+import {User} from "./model/user";
 
 @Component({
   selector: 'app-root',
@@ -33,7 +34,7 @@ export class AppComponent {
     this.menuState = this.menuState === 'out' ? 'in' : 'out';
   }
 
-  constructor(public t: Web3Service, private auth: AuthService) {
+  constructor(public t: Web3Service, public auth: AuthService) {
   }
 
   connect() {
@@ -48,10 +49,13 @@ export class AppComponent {
     this.t.getHeroes().then(r => console.log(r));
   }
 
-  test() {
-    // @ts-ignore
+  login() {
+    console.log('test');
     this.auth.login();
   }
 
+  logout() {
+    this.auth.logout();
+  }
 
 }

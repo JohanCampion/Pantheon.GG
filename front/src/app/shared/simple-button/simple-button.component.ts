@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-simple-button',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimpleButtonComponent implements OnInit {
 
+  @Input()
+  text: string = '';
+
+  @Input()
+  image: boolean = false;
+
+  public onclick: EventEmitter<void> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  emitClick(event: any) {
+    this.onclick.emit(event);
   }
 
 }

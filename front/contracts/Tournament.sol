@@ -8,11 +8,10 @@ contract Tournament {
     mapping(uint256 => address) public tournamentToOwner;
     mapping(address => uint256) public ownerTournamentCount;
 
-    mapping(uint => address[]) public tournamentToParticipant;
-    mapping(address => uint) public participantToTournament;
+    mapping(address => uint[]) public playerToTournament;
+    mapping(address => uint) public playerTournamentCount;
 
-    mapping(address => uint) public tounamentPlayerCounter;
-
+     mapping(address => mapping (uint => bool)) public playerCheck;
 
     enum Status { preparation, check_in, en_cours, termine }
 
@@ -28,13 +27,7 @@ contract Tournament {
         uint nombreParticipants;
     }
 
-
-    struct Participant {
-        address participantAddrr;
-        bool checked_in;
-    }
-
-    TournamentStruct[] tournois;
+    TournamentStruct[] public tournois;
 
 
     event Action (
@@ -47,6 +40,19 @@ contract Tournament {
 
     modifier ownerOnly(){
         require(msg.sender == owner, "Owner reserved only");
+        _;
+    }
+
+    modifier isParticipant(uint _tournamentId) {
+        TournamentStruct memory tr = tournois[_tournamentId];
+        bool isParticipantPresent = false;
+
+        for(uint i =0; i < tr.nombreParticipants; i++) {
+            if(tr.participants[i] == msg.sender) {
+                isParticipantPresent = true;
+            }
+        }
+        require(isParticipantPresent == true, "Vous n'etes pas un participant du tournoi");
         _;
     }
 
@@ -66,6 +72,8 @@ contract Tournament {
         require(date_de_debut > 0, "Veuillez precisez une date de debut");
         require(date_de_fin > 0, "Veuillez precisez une date de debut");
         require(participant.length > 1, "Veuillez ajouter au moins 2 joueurs");
+        require(participant.length < 11, "Nombres maximum de joueurs a 10");
+        require(participant.length == nombreParticipant, "Le nombres de joueur n'est pas correct");
 
         tournamentToOwner[tournamentId] = msg.sender;
         ownerTournamentCount[msg.sender]++;
@@ -81,43 +89,39 @@ contract Tournament {
         tournoi.nombreParticipants = nombreParticipant;
         tournoi.checked = new address[](0x0);
 
-        // ajout des participant dans la base
-         tournamentToParticipant[tournamentId] = participant;
-
-         //count
+         //update participant
          for(uint i = 0; i < nombreParticipant; i++) {
-             tounamentPlayerCounter[participant[i]]++;
+             playerToTournament[participant[i]].push(tournamentId);
+             playerTournamentCount[participant[i]]++;
          }
 
         tournamentId++;
         return true;
     }
 
-    function getMesTournoisOrganise() external view returns (TournamentStruct[] memory) {
-        TournamentStruct[] memory result = new TournamentStruct[](2);
-        uint count = 0;
-        for(uint i = 0; i < tournois.length; i++) {
-            for(uint y = 0; y < tournois[i].nombreParticipants; y++) {
-                if(tournois[i].participants[y] == msg.sender) {
-                    result[count] = tournois[i];
-                    count++;
-                }
-
-            }
-
-        }
-        return result;
+    function getMesTournoisJoueurs() external view returns (uint[] memory) {
+        return playerToTournament[msg.sender];
     }
 
+    function getAllTournois() external view returns (TournamentStruct[] memory) {
+        return tournois;
+    }
 
-    function checkIn(uint _tournamentId) external {
+    function getTournoi(uint _id) external view returns (TournamentStruct memory) {
+        return tournois[_id];
+    }
+
+    function getTimeStamp() public view returns(uint) {
+    return block.timestamp;
+    }
+
+    
+    function checkIn(uint _tournamentId) external isParticipant(_tournamentId) {
         TournamentStruct storage tr = tournois[_tournamentId];
+        require(tr.date_de_debut - 1 hours < block.timestamp && block.timestamp < tr.date_de_debut, "Vous ne pouvez pas encore checkIn");
+        if(playerCheck[msg.sender][_tournamentId]) revert("Deja checkin");
         tr.checked.push(msg.sender);
-        for(uint i = 0; i < tr.nombreParticipants; i++) {
-            if(tr.participants[i] == msg.sender) {
-                tr.checked.push(msg.sender);
-            }
-        }
+        playerCheck[msg.sender][_tournamentId] = true;
     }
 
 

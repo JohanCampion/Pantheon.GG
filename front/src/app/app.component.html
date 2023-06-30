@@ -2,7 +2,19 @@
   <span class="icon-menu" (click)="expandMenu()"></span>
   <img src="./assets/images/logo.png">
   <h1>Pantheon.GG</h1>
-  <app-simple-button></app-simple-button>
+  <div class="space"></div>
+  <div class="connexion">
+    <ng-container *ngIf="auth.isLoggedIn; else connectButton">
+      <div class="connectedArea">
+        <p>Bonjour {{this.auth.userConnected?.username}}</p>
+        <app-simple-button (click)="logout()" text="Se déconnecter"></app-simple-button>
+      </div>
+    </ng-container>
+    <ng-template #connectButton>
+      <app-simple-button [text]="'Se connecter avec Metamask'" [image]=true (click)="login()"></app-simple-button>
+    </ng-template>
+
+  </div>
 </header>
 <mat-sidenav-container autosize>
   <mat-sidenav class="sidenav" #sidenav mode="side" opened="true">

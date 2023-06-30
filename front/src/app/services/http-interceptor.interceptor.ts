@@ -21,6 +21,8 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
           "Bearer " + idToken)
       });
 
+      console.log('enter interceptor');
+
       return next.handle(cloned);
     }
     else {

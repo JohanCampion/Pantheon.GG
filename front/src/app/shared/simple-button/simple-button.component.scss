@@ -1,6 +1,37 @@
 @import 'src/colors';
 
-button {
+div {
   background-color: $lightGrey;
-  height: 3rem
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 2px solid $grey;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid $dark;
+    p {
+      color: $orange;
+    }
+  }
+}
+
+p {
+  font-size: 2rem;
+  padding-top: 1rem;
+  color: white;
+}
+
+span {
+  font-size: 15rem;
+}
+
+img {
+  height: 2rem;
+  width: 2rem;
 }

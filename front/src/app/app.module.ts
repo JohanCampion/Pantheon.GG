@@ -12,7 +12,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "./shared/shared.module";
 import { HomeComponent } from './components/home/home.component';
-import { HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpInterceptorInterceptor} from "./services/http-interceptor.interceptor";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { HttpClientModule} from "@angular/common/http";
     FormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
