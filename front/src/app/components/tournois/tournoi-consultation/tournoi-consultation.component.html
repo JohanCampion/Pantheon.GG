@@ -1,0 +1,83 @@
+<div class="container">
+  <h1>Informations</h1>
+  <div class="card">
+    <div class="infos">
+      <div class="info">
+        <label>Nom du tournoi :</label>
+        <p>{{tournoi?.name}}</p>
+      </div>
+      <div class="info">
+        <label>Nombre de participants :</label>
+        <p>{{tournoi?.nombreParticipants}}</p>
+      </div>
+      <div class="info">
+        <label>Organisateur :</label>
+        <app-player-name [playerAddress]="tournoi.createur!"></app-player-name>
+      </div>
+      <div class="info">
+        <label>Date de début :</label>
+        <p>{{tournoi?.date_de_debut | date: 'dd/MM/yyyy HH:mm'}}</p>
+      </div>
+      <div class="info">
+        <label>Statut :</label>
+        <p>{{Status[Number(tournoi.status)]}}</p>
+      </div>
+    </div>
+    <div class="joueurs">
+      <label>Liste des participants :</label>
+      <div *ngFor="let address of tournoi?.participants" class="player-line">
+        <app-player-name [playerAddress]="address"></app-player-name>
+        <div class="checkStatus">
+          <p *ngIf="tournoi?.checked?.includes(address); else notValid">Ce joueurs a validé son inscription</p>
+          <ng-template #notValid>
+            <p>En attente d'inscription</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container  *ngIf="(tournoi.status == '0' || tournoi.status == '1')">
+    <h1>Inscription</h1>
+    <div class="card inscription" *ngIf="tournoi">
+      <div *ngIf="nowDate.getTime() < dateDebutTournoi; else noTime">
+        <div class="timer" *ngIf="dateDebutTournoi - (60*60*1000) > nowDate.getTime(); else inscrit">
+          <p>Les inscriptions pour ce tournoi commence dans : </p>
+          <app-timer [dateLimite]="tournoi.date_de_debut"></app-timer>
+        </div>
+        <ng-template #inscrit>
+          <app-simple-button *ngIf="!tournoi.checked?.includes(web3.getAccount()!); else alreadyRegister"
+                             (click)="register()" text="Inscrivez-vous"></app-simple-button>
+          <ng-template #alreadyRegister>
+            <h2>Vous êtes inscrit pour ce tournoi</h2>
+          </ng-template>
+        </ng-template>
+      </div>
+      <ng-template #noTime>
+        <h2>Vous ne pouves plus vous inscrire sur ce tournoi</h2>
+      </ng-template>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tournoi.participants?.length == tournoi?.checked?.length && tournoi.status != '3'">
+    <h1>Validation</h1>
+    <div class="card">
+      <div class="validation">
+        <div class="validation-button">
+          <p>Veuillez entrez l'identifiant de la game de tournoi : </p>
+          <input type="text">
+          <app-simple-button (click)="validation()" class="button" text="Validation"></app-simple-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tournoi.status == '3'">
+    <h1>Gagnant(s)</h1>
+    <div class="card gagnant">
+      <h2>Liste des vainqueur(s) du tournoi : </h2>
+      <div class="gagnant-list">
+        <app-player-name *ngFor="let player of tournoi?.winner" [playerAddress]="player"></app-player-name>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+

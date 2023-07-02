@@ -19,6 +19,8 @@ export class Web3Service {
   // @ts-ignore
   public abi;
 
+  contractAddress = '0x128382E6Da9f14A43246BC04394C1a1A75427bbA';
+
   public accountsObservable = new Subject<string[]>();
   ABI = require('./Tournament.json');
 
@@ -44,6 +46,7 @@ export class Web3Service {
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
       this.web3 = new Web3(new Web3(window.web3.currentProvider));
+      console.log('web3 init');
     } else {
       console.log('No web3? You should consider trying MetaMask!');
 
@@ -67,7 +70,7 @@ export class Web3Service {
 
   public artifactsToContract() {
     if (this.web3) {
-      const instance = new this.web3.eth.Contract(this.ABI, '0x500BE788f52966f177F435f4C333A08f18B3bfdC');
+      const instance = new this.web3.eth.Contract(this.ABI, this.contractAddress);
       return instance;
     }
   }
@@ -88,13 +91,6 @@ export class Web3Service {
     const message = this.web3.utils.utf8ToHex(`Pantheon.GG nonce : ${nonce}`);
     const signature = await this.web3.eth.personal.sign(message, this.accounts[0]);
     return signature;
-  }
-
-  private toHex(stringToConvert: string) {
-    return stringToConvert
-      .split('')
-      .map((c) => c.charCodeAt(0).toString(16).padStart(2, '0'))
-      .join('');
   }
 
   public getProvider() {

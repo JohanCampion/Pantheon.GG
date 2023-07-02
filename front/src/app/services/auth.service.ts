@@ -14,6 +14,7 @@ export class AuthService {
   public userConnected: User | null = null;
 
   constructor(private http: HttpClient, private web3: Web3Service) {
+    this.userConnected = JSON.parse(localStorage.getItem('user')!);
 
   }
 
@@ -46,7 +47,9 @@ export class AuthService {
     ).subscribe((value: any) => {
       this.setSession(value.accessToken);
       this.http.get<User>(`http://localhost:8555/api/users/${_user.id}`).subscribe(user => {
+        console.log(user);
         this.userConnected = user;
+        localStorage.setItem('user', JSON.stringify(user));
       })
     });
 
@@ -63,6 +66,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem("id_token");
+    localStorage.removeItem("user");
   }
 
   test() {

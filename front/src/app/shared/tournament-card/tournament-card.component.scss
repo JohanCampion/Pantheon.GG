@@ -1,0 +1,77 @@
+@import 'src/colors';
+
+.container {
+  width: 450px;
+  height: 300px;
+  background-color: $lightGrey;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  border: 1px solid white;
+}
+
+.top {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+
+  h4 {
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+label {
+  color: $grey;
+  font-size: 15px;
+}
+
+.footer {
+  background-color: $darkGrey;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  border-radius: 0 0 15px 15px;
+  padding: 2rem;
+  border: 1px solid white;
+
+  .info-column {
+    flex:1;
+  }
+
+  .consult-button {
+    flex:1;
+  }
+}
+
+p {
+  color: white;
+  font-weight: bold;
+}

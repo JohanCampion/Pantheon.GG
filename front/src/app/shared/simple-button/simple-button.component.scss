@@ -13,8 +13,18 @@ div {
   border: 2px solid $grey;
   cursor: pointer;
 
+  &.disable {
+    opacity: 0.20;
+    &:hover {
+      border: 2px solid $grey;
+      p {
+        color: white;
+      }
+    }
+  }
+
   &:hover {
-    border: 2px solid $dark;
+    border: 2px solid $orange;
     p {
       color: $orange;
     }

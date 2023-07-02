@@ -1,4 +1,4 @@
-<div (click)="emitClick($event)">
+<div (click)="emitClick($event)" [ngClass]="{'disable': disabled}">
   <p>{{text}}</p>
   <img *ngIf="image" src="../../assets/images/metamask-seeklogo.com.svg">
 </div>

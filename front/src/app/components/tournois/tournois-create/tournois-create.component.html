@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Création de Tournoi</h1>
+  <form [formGroup]="createForm" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label>Nom du tournoi</label>
+      <input formControlName="name" type="text"/>
+    </div>
+    <div class="form-field">
+      <label>Date de début</label>
+      <input formControlName="date_de_debut" type="datetime-local"/>
+    </div>
+    <div class="form-field">
+      <label>Participants</label>
+      <div>
+        <input placeholder="Recherchez les participants par nom.." [formControl]="inputParticipant"
+               (keyup)="onKeyup($event)" type="text"/>
+        <div class="autocomplete-container">
+          <div (click)="addParticipant(option)" class="autocomplete"
+               *ngFor="let option of filtererUser$ | async">{{option.username}}</div>
+        </div>
+      </div>
+    </div>
+    <p *ngIf="(addedParticipant$ | async)?.length !== 0">Liste des joueurs ajouté :</p>
+    <div class="participantsList">
+      <app-chips [delete]="true" (onDelete)="deleteParticipant(participant)" [text]="participant.username"
+                 *ngFor="let participant of addedParticipant$ | async"></app-chips>
+    </div>
+    <ng-container *ngIf="(addedParticipant$ | async) as addedParticipant">
+      <app-simple-button (click)="submit()" [disabled]="!(createForm.valid && addedParticipant.length > 1)" text="Créer un tournoi">
+      </app-simple-button>
+    </ng-container>
+  </form>
+</div>

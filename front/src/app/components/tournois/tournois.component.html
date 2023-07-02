@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="creation">
+    <app-simple-button text="Creer un tournoi" [routerLink]="['create']"></app-simple-button>
+  </div>
+  <h2>Mes tournois Crée :</h2>
+  <div class="box-container">
+    <app-tournament-card [tournamentId]="tournoiId" *ngFor="let tournoiId of tournoisOwned"></app-tournament-card>
+  </div>
+
+  <h2>Mes tournois en cours :</h2>
+  <div class="box-container">
+
+  </div>
+
+  <h2>Mes tournois terminés :</h2>
+  <div class="box-container">
+  </div>
+
+</div>

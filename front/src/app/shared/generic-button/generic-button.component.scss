@@ -1,0 +1,26 @@
+@import 'src/colors';
+
+div {
+  background-color: $lightGrey;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+  border: 2px solid $grey;
+
+  p {
+    margin: 0;
+    font-size: 2rem;
+    color: white;
+  }
+
+  &:hover {
+    border: 2px solid $orange;
+    p {
+      color: $orange;
+    }
+  }
+}

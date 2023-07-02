@@ -1,0 +1,13 @@
+@import 'src/colors';
+
+span {
+  color: white;
+  font-weight: bold;
+  font-size: 30px
+}
+
+label {
+  color: $darkGrey;
+  font-weight: bold;
+  font-size: 30px;
+}

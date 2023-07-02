@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="top">
+    <div class="header">
+      <img src="../../assets/images/lol.png">
+      <div class="name">
+        <h4>{{tournoi?.name}}</h4>
+      </div>
+    </div>
+    <div class="info">
+      <div class="info-column">
+        <label>Nombres de joueurs</label>
+        <p>{{tournoi?.nombreParticipants}}</p>
+      </div>
+      <div class="info-column">
+        <label>Statut du tournoi</label>
+        <app-chips [text]="Status[Number(tournoi?.status)]"></app-chips>
+      </div>
+      <div class="info-column">
+        <label>Date de début</label>
+        <p>{{tournoi?.date_de_debut | date: 'dd/MM/yyyy HH:ss'}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="info-column">
+      <label>Organisateur</label>
+      <p>Johan</p>
+    </div>
+    <app-generic-button [routerLink]="['consultation', tournoi?.tournamentId]" class="consult-button" text="Consulter"></app-generic-button>
+  </div>
+</div>

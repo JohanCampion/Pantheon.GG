@@ -1,0 +1,17 @@
+@import 'src/colors';
+
+div {
+  background-color: $orange;
+  border-radius: 15px;
+  width: min-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 5px 0 5px;
+
+  p {
+    white-space: nowrap;
+    padding: 5px;
+    margin: 0;
+  }
+}

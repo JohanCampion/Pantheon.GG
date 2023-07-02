@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { User } from '../../models/user.model';
+import {Op} from "sequelize";
 
 export const find = (req: Request, res: Response, next: NextFunction) => {
 	// If a query string ?publicAddress=... is given, then filter results
@@ -9,7 +10,9 @@ export const find = (req: Request, res: Response, next: NextFunction) => {
 			? {
 					where: { publicAddress: req.query.publicAddress },
 			  }
-			: undefined;
+			: {
+				where: { username: { [Op.like]: `%${req.query.name}%` } },
+			};
 
 	return User.findAll(whereClause)
 		.then((users: User[]) => res.json(users))

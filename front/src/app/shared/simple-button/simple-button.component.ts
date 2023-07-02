@@ -13,6 +13,9 @@ export class SimpleButtonComponent implements OnInit {
   @Input()
   image: boolean = false;
 
+  @Input()
+  disabled: boolean = false;
+
   public onclick: EventEmitter<void> = new EventEmitter();
 
   constructor() { }
